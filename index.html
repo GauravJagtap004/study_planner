@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1>Study Planner</h1>
+      <p>Organize subjects, tasks, and review sessions with color-coded progress themes.</p>
+    </header>
+
+    <section class="card features-card">
+      <h2>Feature Map</h2>
+      <p>Each feature block describes a planner page UI module directly on the home screen.</p>
+      <div class="features-grid">
+        <div class="feature-card"><strong>1.</strong> Quick-add task</div>
+        <div class="feature-card"><strong>2.</strong> Subject categories</div>
+        <div class="feature-card"><strong>3.</strong> Priority sorting</div>
+        <div class="feature-card"><strong>4.</strong> Today filter</div>
+        <div class="feature-card"><strong>5.</strong> Completed cleanup</div>
+        <div class="feature-card"><strong>6.</strong> Visual progress bar</div>
+        <div class="feature-card"><strong>7.</strong> Dark/light mode</div>
+        <div class="feature-card"><strong>8.</strong> Deadline reminders</div>
+        <div class="feature-card"><strong>9.</strong> Notes per task</div>
+        <div class="feature-card"><strong>10.</strong> Calendar wall</div>
+        <div class="feature-card"><strong>11.</strong> Weekly scoring</div>
+        <div class="feature-card"><strong>12.</strong> Pomodoro timer</div>
+        <div class="feature-card"><strong>13.</strong> Habit tracking</div>
+        <div class="feature-card"><strong>14.</strong> Subject goals</div>
+        <div class="feature-card"><strong>15.</strong> Progress charts</div>
+        <div class="feature-card"><strong>16.</strong> Study streak rewards</div>
+        <div class="feature-card"><strong>17.</strong> Custom tags</div>
+        <div class="feature-card"><strong>18.</strong> Review schedule</div>
+        <div class="feature-card"><strong>19.</strong> Auto-prioritization</div>
+        <div class="feature-card"><strong>20.</strong> Export/backup</div>
+      </div>
+    </section>
+
+    <section class="card glass-card">
+      <h2>Add New Task</h2>
+      <form id="taskForm">
+        <label>Subject</label>
+        <input type="text" id="subject" required minlength="2" placeholder="e.g., Biology" />
+
+        <label>Task</label>
+        <input type="text" id="task" required minlength="2" placeholder="e.g., Read Chapter 3" />
+
+        <label>Due Date</label>
+        <input type="date" id="dueDate" required />
+
+        <label>Priority</label>
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <h2>My Tasks</h2>
+        <div>
+          <button id="clearCompleted">Clear Completed</button>
+          <button id="clearAll">Clear All</button>
+        </div>
+      </div>
+      <div class="progress-widget">
+        <div class="progress-label">Completion</div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div id="progressText" class="progress-text">0% done</div>
+      </div>
+      <ul id="taskList"></ul>
+      <p id="emptyState">No tasks yet. Add one to get started!</p>
+    </section>
+
+    <section class="card">
+      <h2>Today</h2>
+      <ul id="todayList"></ul>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>Study Planner © 2026 · Built for focus & productivity.</p>
+      <p>Feature-rich UI map, persisting tasks, and 20+ planner ideas.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

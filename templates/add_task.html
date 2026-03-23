@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Task - Study Planner{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>Add New Task</h2>
+    <form action="{{ url_for('add_task') }}" method="post" class="task-form">
+        <label for="subject">Subject</label>
+        <input list="subject-list" type="text" id="subject" name="subject" required placeholder="e.g., Mathematics" value="" />
+        <datalist id="subject-list">
+            {% for s in subjects %}
+                <option value="{{ s }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <label for="title">Task Title</label>
+        <input type="text" id="title" name="title" required placeholder="e.g., Review chapter 4" />
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" placeholder="Add details..."></textarea>
+
+        <label for="deadline">Deadline</label>
+        <input type="datetime-local" id="deadline" name="deadline" required />
+
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+
+        <button type="submit" class="btn-primary">Add Task</button>
+    </form>
+</div>
+{% endblock %}

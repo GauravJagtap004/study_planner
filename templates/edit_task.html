@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Task - Study Planner{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>Edit Task</h2>
+    <form action="{{ url_for('edit', task_id=task['id']) }}" method="post" class="task-form">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" value="{{ task['subject'] }}" required />
+
+        <label for="title">Task Title</label>
+        <input type="text" id="title" name="title" value="{{ task['title'] }}" required />
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4">{{ task['description'] }}</textarea>
+
+        <label for="deadline">Deadline</label>
+        <input type="datetime-local" id="deadline" name="deadline" value="{{ task['deadline']|replace(' ', 'T') }}" required />
+
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority" required>
+            <option value="Low" {% if task['priority'] == 'Low' %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if task['priority'] == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="High" {% if task['priority'] == 'High' %}selected{% endif %}>High</option>
+        </select>
+
+        <button type="submit" class="btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

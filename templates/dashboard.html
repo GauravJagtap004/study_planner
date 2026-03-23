@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Study Planner{% endblock %}
+
+{% block content %}
+<div class="dashboard-welcome">
+    <h2>Welcome back, {{ g.user.username if g.user else 'Guest' }} </h2>
+    <p>Your points: <strong>{{ points }}</strong></p>
+</div>
+
+<div class="dashboard-grid">
+    <div class="card stats-card">
+        <h2>Total Tasks</h2>
+        <p>{{ total_tasks }}</p>
+    </div>
+    <div class="card stats-card">
+        <h2>Completed</h2>
+        <p>{{ completed_tasks }}</p>
+    </div>
+    <div class="card stats-card">
+        <h2>Pending</h2>
+        <p>{{ pending_tasks }}</p>
+    </div>
+    <div class="card stats-card">
+        <h2>Progress</h2>
+        <p>{{ progress }}%</p>
+    </div>
+    <div class="card stats-card today-card">
+        <h2>Today's Tasks</h2>
+        <p>{{ todays_tasks|length }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Today's Tasks</h2>
+    {% if today_tasks %}
+        <ul class="task-list">
+            {% for task in today_tasks %}
+                <li class="task-item {% if task.overdue %}overdue{% endif %}">
+                    <div>
+                        <strong>{{ task.subject }}</strong> - {{ task.title }}
+                        <div class="task-meta">{{ task.deadline }} &bullet; <span class="priority-chip priority-{{ task.priority|lower }}">{{ task.priority }}</span></div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks for today yet.</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>Pending Tasks</h2>
+    {% if pending_tasks_list %}
+        <ul class="task-list">
+            {% for task in pending_tasks_list %}
+                <li class="task-item {% if task.overdue %}overdue{% endif %}">
+                    <div>
+                        <strong>{{ task.subject }}</strong> - {{ task.title }}
+                        <div class="task-meta">{{ task.deadline }} &bullet; <span class="priority-chip priority-{{ task.priority|lower }}">{{ task.priority }}</span></div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending tasks. Great work!</p>
+    {% endif %}
+</div>
+{% endblock %}

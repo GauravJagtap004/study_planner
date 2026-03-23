@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome - Study Planner{% endblock %}
+
+{% block content %}
+<div class="landing">
+    <div class="landing-hero">
+        <h1>Study Planner</h1>
+        <p>Smart task tracking, scheduling, and study performance with no JavaScript.</p>
+        <div class="hero-buttons">
+            <a class="btn-primary" href="{{ url_for('login') }}">Login</a>
+            <a class="button" href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

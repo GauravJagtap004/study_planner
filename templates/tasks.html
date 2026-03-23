@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List - Study Planner{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="table-header">
+        <h2>All Tasks</h2>
+        <form method="get" action="{{ url_for('tasks') }}" class="inline-filter">
+            <label for="priority">Filter by priority</label>
+            <select id="priority" name="priority" onchange="this.form.submit()">
+                <option value="all" {% if priority_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="Low" {% if priority_filter == 'Low' %}selected{% endif %}>Low</option>
+                <option value="Medium" {% if priority_filter == 'Medium' %}selected{% endif %}>Medium</option>
+                <option value="High" {% if priority_filter == 'High' %}selected{% endif %}>High</option>
+            </select>
+        </form>
+    </div>
+    {% if tasks %}
+    <div class="task-table-wrap">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Topic</th>
+                    <th>Deadline</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr class="{% if task.overdue %}overdue{% endif %} {% if task.status == 'completed' %}completed-row{% endif %}">
+                    <td>{{ task.subject }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td><span class="priority-chip priority-{{ task.priority|lower }}">{{ task.priority }}</span></td>
+                    <td><span class="status-chip status-{{ task.status }}">{{ task.status | capitalize }}</span></td>
+                    <td>
+                        {% if task.status == 'pending' %}
+                            <a class="button action-button" href="{{ url_for('complete', task_id=task.id) }}">Complete</a>
+                        {% endif %}
+                        <a class="button" href="{{ url_for('edit', task_id=task.id) }}">Edit</a>
+                        <a class="button danger-button" href="{{ url_for('delete', task_id=task.id) }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No tasks found. <a href="{{ url_for('add_task') }}">Add one now</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

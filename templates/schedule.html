@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Schedule - Study Planner{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Schedule</h2>
+    {% if schedule %}
+    {% for day, tasks_on_day in schedule.items() %}
+    <div class="schedule-day">
+        <h3>{{ day }}</h3>
+        <ul class="task-list">
+            {% for task in tasks_on_day %}
+            <li class="task-item {% if task.status == 'completed' %}completed-row{% elif task.overdue %}overdue{% endif %}">
+                <strong>{{ task.subject }}</strong> - {{ task.title }}
+                <span class="task-meta">{{ task.deadline[11:] }} &bullet; {{ task.priority }} &bullet; {{ task.status }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+        <p>No scheduled tasks yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

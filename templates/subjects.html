@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Subjects - Study Planner{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>Add New Subject</h2>
+    <form method="post" class="task-form">
+        <label for="subject_name">Subject Name</label>
+        <input type="text" id="subject_name" name="subject_name" required placeholder="e.g., Mathematics" />
+        <button class="btn-primary" type="submit">Add Subject</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Subjects Overview</h2>
+    {% if subjects %}
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Task Count</th>
+                <th>Completed</th>
+                <th>Progress</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            {% set tasks = tasks_by_subject[subject['name']] %}
+            {% set completed = tasks | selectattr('status', 'equalto', 'completed') | list | length %}
+            {% set total = tasks | length %}
+            <tr>
+                <td>{{ subject['name'] }}</td>
+                <td>{{ total }}</td>
+                <td>{{ completed }}</td>
+                <td>{{ (completed / total * 100) | round(0) if total else 0 }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Task details by subject</h3>
+    {% for subject_name, sub_tasks in tasks_by_subject.items() %}
+    <div class="subject-group">
+        <h4>{{ subject_name }}</h4>
+        {% if sub_tasks %}
+        <ul class="task-list">
+            {% for task in sub_tasks %}
+            <li class="task-item {% if task.overdue %}overdue{% endif %} {% if task.status == 'completed' %}completed-row{% endif %}">
+                <strong>{{ task.title }}</strong> - {{ task.deadline[:16] }}
+                <span class="task-meta">{{ task.priority }} &bullet; {{ task.status }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No tasks in this subject.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    {% else %}
+        <p>No subjects found. Add one above.</p>
+    {% endif %}
+</div>
+{% endblock %}

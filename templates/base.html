@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Study Planner{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-wrap">
+            <a class="logo" href="{{ url_for('dashboard') }}">Study Planner</a>
+            <ul class="nav-links">
+                {% if g.user %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('add_task') }}">Add Task</a></li>
+                    <li><a href="{{ url_for('tasks') }}">My Tasks</a></li>
+                    <li><a href="{{ url_for('schedule_page') }}">Schedule</a></li>
+                    <li><a href="{{ url_for('subject_page') }}">Subject</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>Study Planner © 2026 · Flask + SQLite · No JavaScript</p>
+    </footer>
+</body>
+</html>
